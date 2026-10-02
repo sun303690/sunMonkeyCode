@@ -22,6 +22,10 @@ const (
 	ModelProviderBaiLian     ModelProvider = "BaiLian"
 	ModelProviderVolcengine  ModelProvider = "Volcengine"
 	ModelProviderGoogle      ModelProvider = "Gemini"
+	ModelProviderAnthropic   ModelProvider = "Anthropic"
+	ModelProviderXAI         ModelProvider = "xAI"
+	ModelProviderOpenRouter  ModelProvider = "OpenRouter"
+	ModelProviderKimi        ModelProvider = "Kimi"
 )
 
 type InterfaceType string

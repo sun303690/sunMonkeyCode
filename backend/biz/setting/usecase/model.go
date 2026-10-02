@@ -232,7 +232,11 @@ func (u *modelUsecase) GetProviderModelList(ctx context.Context, req *domain.Get
 	}
 	switch req.Provider {
 	case consts.ModelProviderAzureOpenAI,
-		consts.ModelProviderVolcengine:
+		consts.ModelProviderVolcengine,
+		consts.ModelProviderAnthropic,
+		consts.ModelProviderXAI,
+		consts.ModelProviderOpenRouter,
+		consts.ModelProviderKimi:
 		return &domain.GetProviderModelListResp{
 			Models: domain.ModelProviderBrandModelsList[req.Provider],
 		}, nil

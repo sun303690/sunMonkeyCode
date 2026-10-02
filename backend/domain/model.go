@@ -278,7 +278,7 @@ type UpdateModelReq struct {
 }
 
 type GetProviderModelListReq struct {
-	Provider  consts.ModelProvider `json:"provider" query:"provider" validate:"required,oneof=SiliconFlow OpenAI Ollama DeepSeek Moonshot AzureOpenAI BaiZhiCloud Hunyuan BaiLian Volcengine Gemini Other"`
+	Provider  consts.ModelProvider `json:"provider" query:"provider" validate:"required,oneof=SiliconFlow OpenAI Ollama DeepSeek Moonshot AzureOpenAI BaiZhiCloud Hunyuan BaiLian Volcengine Gemini Anthropic xAI OpenRouter Kimi Other"`
 	BaseURL   string               `json:"base_url" query:"base_url" validate:"required"`
 	APIKey    string               `json:"api_key" query:"api_key" validate:"required"`
 	APIHeader string               `json:"api_header" query:"api_header"`
@@ -342,5 +342,48 @@ var ModelProviderBrandModelsList = map[consts.ModelProvider][]ProviderModelListI
 		{Model: "doubao-seed-1.6-thinking-250615"},
 		{Model: "doubao-1.5-thinking-vision-pro-250428"},
 		{Model: "deepseek-r1-250528"},
+	},
+	consts.ModelProviderAnthropic: {
+		{Model: "claude-fable-5-1"},
+		{Model: "claude-fable-5"},
+		{Model: "claude-opus-5-5"},
+		{Model: "claude-opus-4-8"},
+		{Model: "claude-opus-4-6"},
+		{Model: "claude-sonnet-5-5"},
+		{Model: "claude-sonnet-5"},
+		{Model: "claude-sonnet-4-6"},
+		{Model: "claude-haiku-4-5"},
+	},
+	consts.ModelProviderGoogle: {
+		{Model: "gemini-3-pro-preview"},
+		{Model: "gemini-3-flash-preview"},
+		{Model: "gemini-2.5-pro"},
+		{Model: "gemini-2.5-flash"},
+		{Model: "gemini-2.5-flash-lite"},
+	},
+	consts.ModelProviderXAI: {
+		{Model: "grok-4.6"},
+		{Model: "grok-4.5"},
+		{Model: "grok-4.3"},
+		{Model: "grok-4.20-0309-reasoning"},
+		{Model: "grok-4.20-0309-non-reasoning"},
+		{Model: "grok-4.20-multi-agent-0309"},
+		{Model: "grok-build-0.1"},
+		{Model: "grok-3-mini"},
+		{Model: "grok-3-mini-fast"},
+		{Model: "grok-composer-2.5-fast"},
+		{Model: "grok-4-fast"},
+		{Model: "grok-4-fast-non-reasoning"},
+		{Model: "grok-code-fast-1"},
+	},
+	consts.ModelProviderOpenRouter: {
+		{Model: "anthropic/claude-sonnet-4"},
+		{Model: "google/gemini-2.5-flash"},
+		{Model: "openai/gpt-4o"},
+		{Model: "meta-llama/llama-4-maverick"},
+	},
+	consts.ModelProviderKimi: {
+		{Model: "kimi-k3"},
+		{Model: "kimi-k2"},
 	},
 }

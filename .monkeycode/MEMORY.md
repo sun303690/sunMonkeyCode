@@ -43,3 +43,29 @@ Agent 在任务执行过程中发现的条目应遵循以下格式：
   - UI 验收需等待 `document.fonts.ready`，确认 JetBrains Mono Variable 与 Noto Sans SC Variable 已加载，并检查浏览器控制台和 Network 中没有字体资源失败。
   - 在 320px、375px、390px、430px 和 1280px 对照基准页面核对字体族、字号、字重和行高，字体变化应作为构建后高频回归项记录和处理。
   - Vite 日志出现 `Must set target or forward` 表示 `/api` proxy 缺少 `TARGET`，应使用显式目标重启预览。
+
+[本机 npm 源与 pnpm 安装]
+- Date: 2026-10-01
+- Context: Agent 在为 frontend 安装依赖时发现
+- Category: 环境配置
+- Instructions:
+  - `registry.npmjs.org` 不可达（仅解析到 IPv6，连接 ENETUNREACH）；`registry.npmmirror.com` 可用。
+  - 全局装 pnpm：`npm config set registry https://registry.npmmirror.com` 后 `npm install -g pnpm --force`（`/usr/local/bin/pnpm` 默认是 corepack 占位，需 `--force` 覆盖）。
+  - frontend 安装：`pnpm install --registry=https://registry.npmmirror.com`。
+
+[backend 构建验证]
+- Date: 2026-10-01
+- Context: Agent 在修改 backend 后验证编译
+- Category: 构建方法
+- Instructions:
+  - backend 单包编译：`cd /workspace/backend && go build ./consts/... ./domain/... ./biz/setting/...`。
+  - 首次 build 会从公网拉取 Go 依赖（github.com 可达，较慢），后续走缓存。
+
+[模型 provider 字段语义]
+- Date: 2026-10-01
+- Context: Agent 在移植 OpenMinis 模型目录到 MonkeyCode 时确认
+- Category: 环境配置
+- Instructions:
+  - MonkeyCode 模型配置核心字段：`provider`(string，无 enum 校验)、`base_url`、`model`、`interface_type`(openai_chat|openai_responses|anthropic)、`context_limit`、`output_limit`、`thinking_enabled`、`support_image`、`api_key`(每用户私有)。
+  - Anthropic 走官方 SDK，`base_url` 规范化为 `https://api.anthropic.com`（带或不带 /v1 均可）。
+  - 仅 `GetProviderModelListReq.Provider` 有 `oneof` 校验；新增 provider 须同步更新该 oneof、`consts.ModelProvider` 枚举、`ModelProviderBrandModelsList`、`usecase.GetProviderModelList` 的 switch。
